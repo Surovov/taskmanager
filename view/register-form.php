@@ -20,7 +20,7 @@
         <h2 class="uk-text-center">Регистрация</h2>
 
         <!-- Поля для ввода данных регистрации -->
-        <form action="control/register.php" method="post">
+        <form action="../control/register.php" method="post">
             <div class="uk-margin">
                 <input class="uk-input" name="name" type="text" placeholder="Имя пользователя" required>
             </div>
@@ -43,7 +43,11 @@
             <div class="uk-margin uk-text-center">
                 <a href="login.html" class="uk-link-reset">Уже зарегистрированы? Войти</a>
             </div>
-
+            <?php if (isset($_GET['error'])): ?>
+                <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
+                    <p><?php echo htmlspecialchars($_GET['error']); ?></p>
+                </div>
+            <?php endif; ?>
             <!-- Аллерты для ошибок -->
             <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
                 <p>Пароли не совпадают.</p>

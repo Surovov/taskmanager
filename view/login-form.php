@@ -20,7 +20,7 @@
         <h2 class="uk-text-center">Авторизация</h2>
 
         <!-- Поле login -->
-        <form action="control/login.php" method="post">
+        <form action="../control/login.php" method="post">
             <div class="uk-margin">
                 <input class="uk-input" name="email" type="email" placeholder="E-mail" required>
             </div>
@@ -39,7 +39,11 @@
             <div class="uk-margin uk-text-center">
                 <a href="#" class="uk-link-reset">Забыли пароль?</a>
             </div>
-
+            <?php if (isset($_GET['error'])): ?>
+                <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
+                    <p><?php echo htmlspecialchars($_GET['error']); ?></p>
+                </div>
+            <?php endif; ?>
             <!-- Аллерты для ошибок -->
             <div id="login-error" class="uk-alert-danger" uk-alert style="display: none;">
                 <p>Логин не существует.</p>
