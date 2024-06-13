@@ -29,23 +29,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Проверка пароля
             if (password_verify($password, $user['password'])) {
                 // Успешная авторизация, сбрасываем счетчик неудачных попыток
-                $stmt = $pdo->prepare('UPDATE users SET failed_attempts = 0 WHERE email = :email');
-                $stmt->bindParam(':email', $email);
-                $stmt->execute();
-
+                unset($_SESSION['failed_attempts']);
+                
                 // Запуск сессии и редирект на index.php
                 $_SESSION['user_id'] = $user['id'];
                 header('Location: ../index.php');
                 exit;
             } else {
                 // Обработка неудачной попытки
-                $stmt = $pdo->prepare('UPDATE users SET failed_attempts = failed_attempts + 1 WHERE email = :email');
-                $stmt->bindParam(':email', $email);
-                $stmt->execute();
+                if (!isset($_SESSION['failed_attempts'])) {
+                    $_SESSION['failed_attempts'] = 0;
+                }
+                $_SESSION['failed_attempts'] += 1;
 
                 // Проверка количества неудачных попыток
-                if ($user['failed_attempts'] >= 15 && $user['failed_attempts'] == 15) {
-                    // Заблокировать доступ и отправить уведомление только при первой блокировке
+                if ($_SESSION['failed_attempts'] >= 15) {
+                    // Заблокировать доступ и отправить уведомление
                     $resetLink = 'http://yourdomain.com/view/forgot-form.php';
                     $message = 'Было зафиксировано слишком много неудачных попыток входа в ваш аккаунт. Если это были не вы, рекомендуем <a href="' . $resetLink . '">сменить пароль</a>.';
                     sendEmail($email, 'Уведомление о попытке входа', $message);
