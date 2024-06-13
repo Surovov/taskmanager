@@ -1,0 +1,27 @@
+1. Вставьте данные для подключения к вашей базе данных в файл /vendor/db_connect.php:
+
+   Пример:
+
+   $host = 'localhost';
+   $db = 'ваша_база_данных';
+   $user = 'ваш_пользователь';
+   $pass = 'ваш_пароль';
+   
+2. Запустите /start_me.php для создания таблиц в базе данных.
+
+3. Для настройки отправки почты, укажите данные SMTP-сервера в файле /vendor/send_email.php:
+    $mail->Host       = 'smtp.example.com'; // Укажите SMTP-сервер
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'ваш_логин'; // Ваш логин от SMTP-сервера
+    $mail->Password   = 'ваш_пароль'; // Ваш пароль от SMTP-сервера
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;  // Советую перепроверить, так как может отличаться
+
+    $mail->setFrom('ваш_email@example.com', 'Mailer');
+
+4. Перейдите на index.php, зарегистрируйтесь и пользуйтесь.
+
+
+P.S. для функционирования почтовой рассылки, была установлена библиотека phpmailer через Composer. Если у вас что то не работает - возможно нужен Composer. 
+
+P.S.S. Санжар Гей

@@ -11,15 +11,15 @@ function sendEmail($to, $subject, $message) {
     try {
         // Настройки сервера
         $mail->isSMTP();
-        $mail->Host = 'smtp.beget.com'; // Укажите SMTP-сервер
+        $mail->Host = ''; // Укажите SMTP-сервер
         $mail->SMTPAuth = true;
-        $mail->Username = 'taskmanager@surovov.com'; // Ваш SMTP логин
-        $mail->Password = 'LMvD7naGgz%a'; // Ваш SMTP пароль
+        $mail->Username = ''; // Ваш SMTP логин
+        $mail->Password = ''; // Ваш SMTP пароль
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 2525;
+        $mail->Port = 2525; // Советую перепроверить, так как может отличаться
 
         // От кого
-        $mail->setFrom('taskmanager@surovov.com', 'Mailer');
+        $mail->setFrom('', 'Mailer');
         
         // Кому
         $mail->addAddress($to);
