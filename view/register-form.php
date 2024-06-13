@@ -19,8 +19,23 @@
         <!-- Заголовок -->
         <h2 class="uk-text-center">Регистрация</h2>
 
+        <!-- Проверка на ошибки и их отображение -->
+        <?php if (isset($_GET['error'])): ?>
+            <div id="server-error" class="uk-alert-danger" uk-alert>
+                <p><?php echo htmlspecialchars($_GET['error']); ?></p>
+            </div>
+        <?php endif; ?>
+
+        <!-- Аллерты для ошибок -->
+        <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
+            <p>Пароли не совпадают.</p>
+        </div>
+        <div id="registration-success" class="uk-alert-success" uk-alert style="display: none;">
+            <p>Регистрация успешно завершена.</p>
+        </div>
+            
         <!-- Поля для ввода данных регистрации -->
-        <form action="../control/register.php" method="post">
+        <form id="register-form" action="../control/register.php" method="post">
             <div class="uk-margin">
                 <input class="uk-input" name="name" type="text" placeholder="Имя пользователя" required>
             </div>
@@ -31,31 +46,19 @@
                 <input class="uk-input" name="password" type="password" placeholder="Пароль" required>
             </div>
             <div class="uk-margin">
-                <input class="uk-input" type="password" placeholder="Подтвердите пароль" required>
+                <input class="uk-input" name="confirm_password" type="password" placeholder="Подтвердите пароль" required>
             </div>
 
             <!-- Кнопка регистрации -->
             <div class="uk-margin">
-                <button class="uk-button uk-button-primary uk-width-1-1" type="submit" >Зарегистрироваться</button>
-            </div>
-
-            <!-- Ссылка на вход -->
-            <div class="uk-margin uk-text-center">
-                <a href="login.html" class="uk-link-reset">Уже зарегистрированы? Войти</a>
-            </div>
-            <?php if (isset($_GET['error'])): ?>
-                <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
-                    <p><?php echo htmlspecialchars($_GET['error']); ?></p>
-                </div>
-            <?php endif; ?>
-            <!-- Аллерты для ошибок -->
-            <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
-                <p>Пароли не совпадают.</p>
-            </div>
-            <div id="registration-success" class="uk-alert-success" uk-alert style="display: none;">
-                <p>Регистрация успешно завершена.</p>
+                <button class="uk-button uk-button-primary uk-width-1-1" type="submit">Зарегистрироваться</button>
             </div>
         </form>
+
+        <!-- Ссылка на вход -->
+        <div class="uk-margin uk-text-center">
+            <a href="../view/login-form.php" class="uk-link-reset">Уже зарегистрированы? Войти</a>
+        </div>
     </div>
 </div>
 
@@ -63,14 +66,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.6/js/uikit-icons.min.js"></script>
 <script>
     document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const password = document.querySelector('input[type="password"]:nth-child(1)').value;
-        const confirmPassword = document.querySelector('input[type="password"]:nth-child(2)').value;
+        const password = document.querySelector('input[name="password"]').value;
+        const confirmPassword = document.querySelector('input[name="confirm_password"]').value;
         if (password !== confirmPassword) {
+            e.preventDefault();
             document.getElementById('password-match-error').style.display = 'block';
         } else {
             document.getElementById('password-match-error').style.display = 'none';
-            document.getElementById('registration-success').style.display = 'block';
         }
     });
 </script>

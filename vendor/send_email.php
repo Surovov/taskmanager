@@ -3,24 +3,23 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require 'path/to/PHPMailer/src/Exception.php';
-require 'path/to/PHPMailer/src/PHPMailer.php';
-require 'path/to/PHPMailer/src/SMTP.php';
+
+require __DIR__ . '/autoload.php'; // Composer autoloader
 
 function sendEmail($to, $subject, $message) {
     $mail = new PHPMailer(true);
     try {
         // Настройки сервера
         $mail->isSMTP();
-        $mail->Host = 'smtp.example.com'; // Укажите SMTP-сервер
+        $mail->Host = 'smtp.beget.com'; // Укажите SMTP-сервер
         $mail->SMTPAuth = true;
-        $mail->Username = 'your_email@example.com'; // Ваш SMTP логин
-        $mail->Password = 'your_email_password'; // Ваш SMTP пароль
+        $mail->Username = 'taskmanager@surovov.com'; // Ваш SMTP логин
+        $mail->Password = 'LMvD7naGgz%a'; // Ваш SMTP пароль
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port = 2525;
 
         // От кого
-        $mail->setFrom('from@example.com', 'Mailer');
+        $mail->setFrom('taskmanager@surovov.com', 'Mailer');
         
         // Кому
         $mail->addAddress($to);

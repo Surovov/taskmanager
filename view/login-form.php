@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Авторизация</title>
+    <title>Вход</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.6/css/uikit.min.css" />
 </head>
 <body>
@@ -17,41 +17,44 @@
         </div>
 
         <!-- Заголовок -->
-        <h2 class="uk-text-center">Авторизация</h2>
+        <h2 class="uk-text-center">Вход</h2>
 
-        <!-- Поле login -->
+        <!-- Проверка на ошибки и сообщения -->
+        <?php if (isset($_GET['error'])): ?>
+            <div class="uk-alert-danger" uk-alert>
+                <p><?php echo htmlspecialchars($_GET['error']); ?></p>
+            </div>
+        <?php endif; ?>
+        <?php if (isset($_GET['message'])): ?>
+            <div class="uk-alert-success" uk-alert>
+                <p><?php echo htmlspecialchars($_GET['message']); ?></p>
+            </div>
+        <?php endif; ?>
+
+        <!-- Поля для ввода данных входа -->
         <form action="../control/login.php" method="post">
             <div class="uk-margin">
-                <input class="uk-input" name="email" type="email" placeholder="E-mail" required>
+                <input class="uk-input" name="email" type="email" placeholder="Почта" required>
             </div>
-
-            <!-- Поле password -->
             <div class="uk-margin">
                 <input class="uk-input" name="password" type="password" placeholder="Пароль" required>
             </div>
 
-            <!-- Кнопка войти -->
+            <!-- Кнопка входа -->
             <div class="uk-margin">
-                <button class="uk-button uk-button-primary uk-width-1-1"  type="submit" >Войти</button>
-            </div>
-
-            <!-- Ссылка забыли пароль -->
-            <div class="uk-margin uk-text-center">
-                <a href="#" class="uk-link-reset">Забыли пароль?</a>
-            </div>
-            <?php if (isset($_GET['error'])): ?>
-                <div id="password-match-error" class="uk-alert-danger" uk-alert style="display: none;">
-                    <p><?php echo htmlspecialchars($_GET['error']); ?></p>
-                </div>
-            <?php endif; ?>
-            <!-- Аллерты для ошибок -->
-            <div id="login-error" class="uk-alert-danger" uk-alert style="display: none;">
-                <p>Логин не существует.</p>
-            </div>
-            <div id="password-error" class="uk-alert-danger" uk-alert style="display: none;">
-                <p>Неправильный пароль.</p>
+                <button class="uk-button uk-button-primary uk-width-1-1" type="submit">Войти</button>
             </div>
         </form>
+
+        <!-- Ссылка на восстановление пароля -->
+        <div class="uk-margin uk-text-center">
+            <a href="../view/forgot-form.php" class="uk-link-reset">Забыли пароль?</a>
+        </div>
+
+        <!-- Ссылка на регистрацию -->
+        <div class="uk-margin uk-text-center">
+            <a href="../view/register-form.php" class="uk-link-reset">Еще не зарегистрированы? Регистрация</a>
+        </div>
     </div>
 </div>
 
