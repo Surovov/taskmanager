@@ -19,7 +19,7 @@ function sendEmail($to, $subject, $message) {
         $mail->Port = 2525; // Советую перепроверить, так как может отличаться
 
         // От кого
-        $mail->setFrom('', 'Mailer');
+        $mail->setFrom('taskmanager@surovov.com', 'Mailer');
         
         // Кому
         $mail->addAddress($to);
